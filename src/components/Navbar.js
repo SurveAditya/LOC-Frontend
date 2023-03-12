@@ -71,7 +71,7 @@ const Navbar = () => {
                         </Link>{" "}
                     </li>
                     <li>
-                        <Link to="/report" className="drop-link">Public Place Issue</Link>{" "}
+                        <a href="https://jobwave-careerfair.glitch.me" className="drop-link">Virtual Fair</a>{" "}
                     </li>
                     <li>
                         <Link to="/training" className="drop-link">

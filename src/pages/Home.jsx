@@ -11,16 +11,13 @@ import Footer from "../components/Footer";
 import logo from "../images/logo.jpg";
 import { IoLocationSharp } from "react-icons/io5";
 import { TextToSpeech } from "../TextToSpeech";
+import Slideshow from "../components/Slider";
 
 export const Home = () => {
   let navigate = useNavigate();
 
   const [jobData, setjobData] = useState([]);
   const [filter, setFilter] = useState();
-
-  useEffect(() => {
-    TextToSpeech("Welcome to Home Page");
-  }, []);
 
   console.log(filter);
   const options = {
@@ -42,7 +39,7 @@ export const Home = () => {
       .then((response) => {
         console.log(response);
         // setjobData(response.data);
-        setjobData(response.data.organic_results);
+        setjobData(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -70,8 +67,12 @@ export const Home = () => {
       });
   }
   useEffect(() => {
-    // fetchData();
-    fetchAllJobs();
+    if(localStorage.getItem("isAdmin")){
+      navigate("/admin/dashboard")
+      return
+    }
+    fetchData();
+    // fetchAllJobs();
   }, [filter]);
 
   return (
@@ -111,6 +112,12 @@ export const Home = () => {
       <br></br>
       <br></br>
 
+
+<div>
+  <h1 className="text-center">Fetured Section</h1>
+  <hr class="w-48 h-1 mx-auto my-4 bg-gray-300 border-0 rounded md:my-10 dark:bg-gray-700"/>
+  <Slideshow />
+</div>
       {jobData && Array.isArray(jobData) && jobData.length !== 0 && (
         <div className="container mt-5">
           <div className="row">
@@ -130,7 +137,7 @@ export const Home = () => {
           </div> */}
 
             <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-3 gap-4">
               {jobData &&
                 Array.isArray(jobData) &&
                 jobData?.map((item) => (
@@ -139,7 +146,7 @@ export const Home = () => {
                       <h5 class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
                         {item.title}
                       </h5>
-                      <span>{item.company}</span>
+                      <span className="font-bold">{item.company}</span>
                       <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
                         {item.description}
                       </p>

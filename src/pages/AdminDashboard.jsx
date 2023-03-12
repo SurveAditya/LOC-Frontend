@@ -6,6 +6,7 @@ import AdminDashboardData from "../components/AdminDashboardData";
 import AddJob from "../components/AddJob";
 import MyJob from "../components/MyJob";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import MenuDropdown from "../components/MenuDropdown";
 const AdminDashboard = () => {
 
   const [panel, setPanel] = useState(1); 
@@ -50,21 +51,7 @@ const AdminDashboard = () => {
             </div>
             <div className="flex items-center">
               <div className="flex items-center ml-3">
-                <div>
-                  <button
-                    type="button"
-                    className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300"
-                    aria-expanded="false"
-                    data-dropdown-toggle="dropdown-user"
-                  >
-                    <span className="sr-only">Open user menu</span>
-                    <img
-                      className="w-8 h-8 rounded-full"
-                      src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                      alt="user"
-                    />
-                  </button>
-                </div>
+                <MenuDropdown/>
                 <div
                   className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow"
                   id="dropdown-user"
@@ -167,7 +154,7 @@ const AdminDashboard = () => {
                 </svg>
                 <span className="flex-1 ml-3 whitespace-nowrap">My Job</span>
                 <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full">
-                  3
+                  5
                 </span>
               </button>
             </li>
@@ -190,7 +177,12 @@ const AdminDashboard = () => {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Log Out</span>
+                <span onClick={(e) => {
+                    e.preventDefault();
+                    localStorage.clear();
+                    window.location.href = "/";
+                  }}
+                  className="flex-1 ml-3 whitespace-nowrap">Log Out</span>
               </Link>
             </li>
           </ul>

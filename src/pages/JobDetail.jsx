@@ -41,16 +41,16 @@ const JobDetails = () => {
     if(jobData === undefined){
       navigate('/')
     }
-    if(jobData?.id !== id){
-      navigate('/')
-    }
+    // if(jobData?.id !== id){
+    //   navigate('/')
+    // }
     if(!jobData?.title && jobData?.title === ""){
       navigate('/')
     }
   })
   return (
-    <div className="pt-14 grid grid-cols-12 gap-5 w-screen px-4">
-      <div className="col-span-9 mb-10">
+    <div className="pt-14 grid grid-cols-12 gap-5 w-screen px-4 place-items-center">
+      <div className="col-span-9 mb-10 w-[80%]">
         <div className="h-80 rounded-xl overflow-hidden">
           <img className="h-full w-full object-cover" src={meeting} alt="" />
         </div>
@@ -120,7 +120,7 @@ const JobDetails = () => {
         </div>
       </div>
       <div className="col-span-3">
-        <div className="rounded-xl bg-gray-100 p-12 text-gray-900 space-y-5">
+        <div className="rounded-xl min-w-[200px] bg-gray-100 p-12 text-gray-900 space-y-5">
           <div>
             <p>Company</p>
             <h1 className="font-semibold text-lg">{jobData?.company}</h1>

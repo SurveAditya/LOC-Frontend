@@ -11,15 +11,13 @@ import { BiCurrentLocation } from "react-icons/bi";
 import { FaChild } from "react-icons/fa";
 import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
+import axios from "axios";
 // import { useAddJobMutation } from "../../../features/job/jobAPI";
 
 const AddJob = () => {
   //   const {
   //     user: { _id, email, companyName },
   //   } = useSelector((state) => state.auth);
-  const _id = 123;
-  const email = "prateekv2003@gmail.com";
-  const companyName = "Amazon";
 
   //   const [addJob, { isError, isLoading, isSuccess, error, data }] =
   //     useAddJobMutation();
@@ -55,6 +53,7 @@ const AddJob = () => {
   const [contactEmail, setContactEmail] = useState("");
   const [salary, setSalary] = useState("");
   const [desc, setDesc] = useState("");
+  const [company, setCompany] = useState("");
 
   const [newSkill, setNewSkill] = useState("");
   const [skillFields, setskillFields] = useState([]);
@@ -66,59 +65,91 @@ const AddJob = () => {
   const [benefitField, setbenefitField] = useState([]);
 
   const onSubmit = async (e) => {
-    e.preventDefault()
-    if(!position || !location || !experience || !contactEmail || !salary || !desc || !skillFields.length || !resFields.length || !reqFields.length || !benefitField.length){
+    e.preventDefault();
+    if (
+      !position ||
+      !location ||
+      !experience ||
+      !contactEmail ||
+      !salary ||
+      !desc ||
+      !skillFields.length ||
+      !resFields.length ||
+      !reqFields.length ||
+      !benefitField.length
+    ) {
       toast.error("Please fill all the fields", { id: "jobFail" });
-      return
+      return;
     }
-    if(!contactEmail.includes("@")){
+    if (!contactEmail.includes("@")) {
       toast.error("Please enter a valid email", { id: "jobFail" });
-      return
+      return;
     }
     const obj = {
-      title:position,
-      company:companyName,
-      location:location,
-      minexp:parseInt(experience),
-      salary:parseInt(salary),
-      description:desc,
-      skills:skillFields,
-      responsibilities:resFields,
-      qualifications:reqFields,
-      benefits:benefitField,
-      contactEmail:contactEmail,
-    }
-    console.log("form data",obj)
+      title: position,
+      company: company,
+      location: location,
+      minexp: parseInt(experience),
+      salary: parseInt(salary),
+      description: desc,
+      skills: skillFields,
+      responsibilities: resFields,
+      qualifications: reqFields,
+      benefits: benefitField,
+      contactEmail: contactEmail,
+    };
+    console.log("form data", obj);
     // setTimeout(() => {
     //   navigate("/jobs");
     // }, 2500);
-    const url = "https://LOC.adityasurve1.repl.co/user/postjob"
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(obj), // body data type must match "Content-Type" header
-    });
+    // const url = "https://LOC.adityasurve1.repl.co/user/postjob";
+    // const response = await fetch(url, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(obj), // body data type must match "Content-Type" header
+    // });
 
-    const data = await response.json();
-    console.log(data);
-    if(data.status === "success"){
-      toast.success("Job added successfully", {
-        id: "jobAdd",
-        icon: "✅",
-        style: {
-          borderRadius: "10px",
-          background: "#333",
-          color: "#fff",
-        },
+    axios
+      .post(`https://LOC.adityasurve1.repl.co/user/postjob`, {
+        title: position,
+        company: company,
+        location: location,
+        minexp: parseInt(experience),
+        salary: parseInt(salary),
+        description: desc,
+        skills: skillFields,
+        responsibilities: resFields,
+        qualifications: reqFields,
+        benefits: benefitField,
+        contactEmail: contactEmail,
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.status === "success") {
+          toast.success("Job added successfully", {
+            id: "jobAdd",
+            icon: "✅",
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+            },
+          });
+          setTimeout(() => {
+            navigate("/jobs");
+          }, 2500);
+        } else {
+          toast.error("Failed to add the Job", { id: "jobFail" });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      setTimeout(() => {
-        navigate("/jobs");
-      }, 2500);
-    }else{
-      toast.error("Failed to add the Job", { id: "jobFail" });
-    }
+
+    // const data = await response.json();
+    // console.log(data);
 
     setPosition("");
     setLocation("");
@@ -157,7 +188,13 @@ const AddJob = () => {
           <label className="mb-2" htmlFor="experience">
             Company
           </label>
-          <input type="text" id="experience" className="border" />
+          <input
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            type="text"
+            id="experience"
+            className="border"
+          />
         </div>
         <div className="flex flex-col w-full max-w-xs">
           <label className="mb-2" htmlFor="location">
@@ -177,7 +214,7 @@ const AddJob = () => {
           </label>
           <input
             value={experience}
-            onChange={(e)=>setExperience(e.target.value)}
+            onChange={(e) => setExperience(e.target.value)}
             type="text"
             id="experience"
             className="border"
@@ -189,7 +226,7 @@ const AddJob = () => {
           </label>
           <input
             value={contactEmail}
-            onChange={(e)=>setContactEmail(e.target.value)}
+            onChange={(e) => setContactEmail(e.target.value)}
             type="email"
             id="contact-email"
             className="border"
@@ -201,7 +238,7 @@ const AddJob = () => {
           </label>
           <input
             value={salary}
-            onChange={(e)=>setSalary(e.target.value)}
+            onChange={(e) => setSalary(e.target.value)}
             type="text"
             id="salary"
             className="border"
@@ -222,9 +259,12 @@ const AddJob = () => {
           <label className="mb-2" htmlFor="description">
             Description
           </label>
-          <textarea value={desc} 
-          onChange={e=>setDesc(e.target.value)}
-          rows={8} id="description" />
+          <textarea
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+            rows={8}
+            id="description"
+          />
         </div>
         <div className="flex flex-col w-full">
           <label className="mb-2">Skills</label>
@@ -232,7 +272,10 @@ const AddJob = () => {
             <div className="flex space-x-2 flex-wrap">
               {skillFields.map((item, index) => {
                 return (
-                  <div key={index} className="py-2.5 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 w-fit flex space-x-2">
+                  <div
+                    key={index}
+                    className="py-2.5 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 w-fit flex space-x-2"
+                  >
                     {item}{" "}
                     <RxCross2
                       onClick={() => {
@@ -276,7 +319,10 @@ const AddJob = () => {
             <div className="flex space-x-2 flex-wrap">
               {resFields.map((item, index) => {
                 return (
-                  <div  key={index} className="py-2.5 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 w-fit flex space-x-2">
+                  <div
+                    key={index}
+                    className="py-2.5 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 w-fit flex space-x-2"
+                  >
                     {item}{" "}
                     <RxCross2
                       onClick={() => {
@@ -320,7 +366,10 @@ const AddJob = () => {
             <div className="flex space-x-2 flex-wrap">
               {reqFields.map((item, index) => {
                 return (
-                  <div key={index} className="py-2.5 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 w-fit flex space-x-2">
+                  <div
+                    key={index}
+                    className="py-2.5 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 w-fit flex space-x-2"
+                  >
                     {item}{" "}
                     <RxCross2
                       onClick={() => {
@@ -364,7 +413,10 @@ const AddJob = () => {
             <div className="flex space-x-2 flex-wrap">
               {benefitField.map((item, index) => {
                 return (
-                  <div key={index} className="py-2.5 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 w-fit flex space-x-2">
+                  <div
+                    key={index}
+                    className="py-2.5 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 w-fit flex space-x-2"
+                  >
                     {item}{" "}
                     <RxCross2
                       onClick={() => {
@@ -392,7 +444,7 @@ const AddJob = () => {
               <div
                 onClick={(e) => {
                   e.preventDefault();
-                  if(newBenefit === "") return;
+                  if (newBenefit === "") return;
                   setbenefitField([...benefitField, newBenefit]);
                   setNewBenefit("");
                 }}

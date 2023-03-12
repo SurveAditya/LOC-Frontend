@@ -137,7 +137,11 @@ const MenuDropdown = (props) => {
             <Menu.Item>
               {({ active }) => (
                 <div
-                  // onClick={() => signOut()}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    localStorage.clear();
+                    window.location.href = "/";
+                  }}
                   className={`${
                     active ? "bg-violet-500 text-white" : "text-red-600"
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}

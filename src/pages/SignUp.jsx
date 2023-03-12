@@ -7,7 +7,6 @@ import "@passageidentity/passage-auth";
 import login from "../images/signup.jpg";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { TextToSpeech } from "../TextToSpeech";
 import { RxCross2 } from "react-icons/rx";
 
 export const SignUp = () => {
@@ -29,13 +28,26 @@ export const SignUp = () => {
   const [jobTitleFields, setjobTitleFields] = useState([]);
 
   const navigation = useNavigate();
-  useEffect(() => {
-    TextToSpeech("Welcome to Registration Page");
-  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
+    const data = {
+      firstname: fname,
+      lastname: lname,
+      email,
+      mobilenum: mobile,
+      password,
+      confPassword,
+      skills: skillFields,
+      experience: parseInt(experience),
+      layoff: layoff === "false" ? false : true,
+      jobTitle: jobTitleFields,
+      location,
+      previousJobDesc: desc,
+    }
+
+    console.log(data);
     if (
       fname === "" ||
       lname === "" ||

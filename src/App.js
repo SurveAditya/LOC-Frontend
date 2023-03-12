@@ -12,6 +12,7 @@ import Dictaphone from "./pages/Dictaphone";
 import { Finger } from "./pages/Finger";
 import Blog from "./pages/Blog";
 import { Jobs } from "./pages/Jobs";
+// import { JobData } from "./pages/jon-data/:id";
 import { Resume } from "./pages/Resume";
 import Training from "./pages/Training";
 import Navbar from "./components/Navbar";
@@ -20,6 +21,8 @@ import Report from "./pages/Report";
 import { Register } from "./pages/Register";
 import AdminDashboard from "./pages/AdminDashboard";
 import JobDetails from "./pages/JobDetail";
+import Jobdata from "./pages/Jobdata";
+import EmpDetail from "./pages/EmpDetail";
 
 
 
@@ -28,8 +31,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         {
-          window && window.location && window?.location?.pathname !== "/admin/dashboard" && <Navbar />
-
+          window?.location?.pathname !== "/admin/dashboard" ? <Navbar /> : null
         }
         <Routes>
           <Route path="/" element={<Home />} />
@@ -43,14 +45,15 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/finger" element={<Finger />} />
           <Route path="/jobs" element={<Jobs />} />
+          <Route path="/job-data/:id" element={<Jobdata />} />
           <Route path="/job-detail/:id" element={<JobDetails />} />
-          <Route path="/profile/:id" element={<JobDetails />} />
+          <Route path="/employee-detail/:id" element={<EmpDetail />} />
           <Route path="/resume" element={<Resume />} />
           <Route path="/training" element={<Training />} />
           <Route path="/report" element={<Report />} />
         </Routes>
         {
-          window && window.location && window?.location?.pathname !== "/admin/dashboard" && <Footer />
+          window?.location?.pathname !== "/admin/dashboard" ? <Footer /> : null
         }
       </BrowserRouter>
     </div>

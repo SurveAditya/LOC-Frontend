@@ -21,11 +21,6 @@ const Blog = () => {
 
   const [jobData, setjobData] = useState([]);
 
-
-  useEffect(() => {
-    TextToSpeech("Welcome to blog Page")
-  }, [])
-
   const options = {
     method: "POST",
     url: "https://all-serp.p.rapidapi.com/all-serp-website",
