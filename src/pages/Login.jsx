@@ -44,10 +44,12 @@ export const Login = () => {
       localStorage.setItem("token",data.token);
       localStorage.setItem("userId",data.user._id);
       localStorage.setItem("isAdmin",data.user.admin);
-      if(data.user.admin){
-        navigation("/admin/dashboard")
-      }else{
+      console.log(data.user.admin)
+      if(data.user.admin===false){
         navigation("/")
+       
+      }else{
+        navigation("/admin/dashboard")
       }
     }else{
       alert("Crediantial Invalid");

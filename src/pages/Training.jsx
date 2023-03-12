@@ -17,7 +17,7 @@ const Training = () => {
     method: "GET",
     url: "https://youtube-v31.p.rapidapi.com/search",
     params: {
-      q: "Node js tutorial and Career and resume building",
+      q: "resume building and interview tips",
       part: "snippet,id",
       regionCode: "US",
       maxResults: "50",

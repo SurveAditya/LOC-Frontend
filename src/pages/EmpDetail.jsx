@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import meeting from "../images/meeting.jpg";
+
 const EmpDetail = () => {
   const location = useLocation();
   const { empData } = location.state || { from: { pathname: "/" } };
+
+  const hitRealUpdateAPI = () => {
+    fetch(
+      `https://LOC.adityasurve1.repl.co/user/realUpdate?id=${empData._id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Profile Viewed!", data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    hitRealUpdateAPI();
+    console.log(empData);
+  }, []);
   return (
     <div className="profile-page">
       <section className="relative block h-500-px">
@@ -42,8 +67,10 @@ const EmpDetail = () => {
                   {empData?.firstname} {empData?.lastname}
                 </h3>
                 <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                  {empData?.location}<br/>
-                  {empData?.email?.toLowerCase()}<br/>
+                  {empData?.location}
+                  <br />
+                  {empData?.email?.toLowerCase()}
+                  <br />
                   {empData?.mobilenum}
                 </div>
                 <div className="mb-2 text-blueGray-600 mt-10 flex space-x-2 flex-wrap justify-center">

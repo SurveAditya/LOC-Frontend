@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
-import images from '../images/blog1.jpg'
+import images from '../images/layoff.avif'
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { TextToSpeech } from '../TextToSpeech';
@@ -25,7 +25,7 @@ const Blog = () => {
     method: "POST",
     url: "https://all-serp.p.rapidapi.com/all-serp-website",
     params: {
-      keyword: `${filter} blog for disability  people`,
+      keyword: `${filter} blog for building resume and interview tips during layoffs`,
       location: "in",
       language: "en",
       search_engine: "google",
@@ -64,8 +64,8 @@ const Blog = () => {
           <div className='col-md-6'><img className='img-fluid rounded' src={images}></img></div>
           <div className='col-md-6'>
             <div className='mt-5'>
-              <h2>New Kodable update adds Colorblind Mode</h2>
-              <h4 className='text-style-blog mt-3'>Starting with version 8.2, Kodable will now feature a Colorblind Mode that can be enabled or disabled at any time by their 15 million users.</h4>
+              <h2>The layoff and the initial struggle</h2>
+              <h4 className='text-style-blog mt-3'>What started off as small differences became passive aggressive face-offs, and then quickly escalated into personal conflicts. This lead to a status quo that hampered crucial business decisions. “He would bring somebody to work in my own team without my approval and then ask me to fire him when things didn’t work out.</h4>
             </div>
 
           </div>
@@ -108,35 +108,6 @@ const Blog = () => {
 
 
           ))}
-
-
-
-          <div className='col-md-4 mt-4'>
-            <img className='img-fluid rounded' src={images}></img>
-            <h5 className='mt-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h5>
-            <p className='mt-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus.</p>
-          </div>
-          <div className='col-md-4 mt-4'>
-            <img className='img-fluid rounded' src={images}></img>
-            <h5 className='mt-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h5>
-            <p className='mt-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus.</p>
-          </div>
-
-          <div className='col-md-4 mt-4'>
-            <img className='img-fluid rounded' src={images}></img>
-            <h5 className='mt-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h5>
-            <p className='mt-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus.</p>
-          </div>
-          <div className='col-md-4 mt-4'>
-            <img className='img-fluid rounded' src={images}></img>
-            <h5 className='mt-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h5>
-            <p className='mt-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus.</p>
-          </div>
-          <div className='col-md-4 mt-4'>
-            <img className='img-fluid rounded' src={images}></img>
-            <h5 className='mt-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h5>
-            <p className='mt-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus.</p>
-          </div>
         </div>
 
 

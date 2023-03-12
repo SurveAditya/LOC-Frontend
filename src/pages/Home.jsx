@@ -67,10 +67,10 @@ export const Home = () => {
       });
   }
   useEffect(() => {
-    if(localStorage.getItem("isAdmin")){
-      navigate("/admin/dashboard")
-      return
-    }
+    // if(localStorage.getItem("isAdmin")){
+    //   navigate("/admin/dashboard")
+    //   return
+    // }
     fetchData();
     // fetchAllJobs();
   }, [filter]);
@@ -89,7 +89,7 @@ export const Home = () => {
               </p>
 
               <div className="upload-file-container center">
-                <Link to="/resume" style={{ textDecoration: "none" }}>
+                <a href="http://10.120.102.90:3000/home" style={{ textDecoration: "none" }}>
                   <center>
                     <p className="font-size-text">
                       {" "}
@@ -97,7 +97,7 @@ export const Home = () => {
                       to do the magic !
                     </p>
                   </center>
-                </Link>
+                </a>
                 {/* <input className="custom-file-input" type="file" />  */}
               </div>
             </div>

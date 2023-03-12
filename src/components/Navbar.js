@@ -79,9 +79,9 @@ const Navbar = () => {
                         </Link>{" "}
                     </li>
                     <li>
-                        <Link to="/resume" className="drop-link">
+                        <a href='http://10.120.102.90:3000/home' className="drop-link">
                             Create Resume{" "}
-                        </Link>{" "}
+                        </a>{" "}
                     </li>
                     <li>
                         <Link to="/blog" className="drop-link">

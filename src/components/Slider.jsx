@@ -2,12 +2,14 @@ import React from "react";
 import ONE from '../images/one.png'
 import TWO from '../images/two.png'
 import THREE from '../images/three.png'
+import { useNavigate } from 'react-router-dom';
 const IMGS = [ONE, TWO, THREE];
 const delay = 2500;
 
 export default function Slideshow() {
   const [index, setIndex] = React.useState(0);
   const timeoutRef = React.useRef(null);
+  const navigate = useNavigate();
 
   function resetTimeout() {
     if (timeoutRef.current) {
@@ -35,6 +37,9 @@ export default function Slideshow() {
       <div
         className="slideshowSlider"
         style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
+        onClick={() => {
+          window.location.href="https://jobwave-careerfair.glitch.me";
+        }}
       >
         {IMGS.map((IMG, index) => (
           <div
